@@ -1,0 +1,17 @@
+<div style="width:80%;margin:0 auto;" *ngIf="show">
+    <full-calendar
+    #calendar    
+    defaultView="dayGridMonth"
+    [plugins]="calendarPlugins"
+    [weekends]="true"
+    (eventClick)="handleDateClick($event)"
+    [events]="events"
+   
+  ></full-calendar>
+</div>
+
+
+<!-- [
+      { title: 'event 1', date: '2019-05-17 11:00:00' },
+      { title: 'event 2', date: '2019-05-17 10:00:00' }
+    ] -->

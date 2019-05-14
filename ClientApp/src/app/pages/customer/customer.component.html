@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-3 offset-md-1" [formGroup]="addForm">
+        <h5>Employee</h5>
+        <mat-form-field>
+          <input matInput placeholder="Firstname" formControlName="CustomerFirstName" >
+          <mat-error *ngIf="hasError('CustomerFirstName', 'required')">Firstname is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Lastname" formControlName="CustomerLastName"  >
+          <mat-error *ngIf="hasError('CustomerLastName', 'required')">Lastname is required</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="warn" class="col-12 add" (click)="postCustomer()">Add Employee</button>
+    </div>
+      
+      <div class="col-7 offset-md-1">
+          <ng-container *ngIf="dataSource != NULL">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">      
+          
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="customerId">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element;let i = index"> {{ i + 1 }} </td>
+                  </ng-container>
+                
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="customerFirstName">
+                    <th mat-header-cell *matHeaderCellDef> Firstname </th>
+                    <td mat-cell *matCellDef="let element"> {{element.customerFirstName}} </td>
+                  </ng-container>
+                
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="customerLastName">
+                    <th mat-header-cell *matHeaderCellDef> Lastname </th>
+                    <td mat-cell *matCellDef="let element"> {{element.customerLastName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>  </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button>
+                          <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+                        </button>
+                        <button mat-icon-button>
+                          <mat-icon aria-label="Example icon-button with a heart icon" (click)="delete(element)">delete_outline</mat-icon>
+                        </button>
+                    </td>
+                  </ng-container>
+              
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+          </ng-container>
+            
+      </div>
+      
+</div>

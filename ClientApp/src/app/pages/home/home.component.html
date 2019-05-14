@@ -1,0 +1,235 @@
+<!-- <button mat-raised-button (click)="isOptional = !isOptional">
+    {{!isOptional ? 'Enable optional steps' : 'Disable optional steps'}}
+  </button> -->
+  
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="bookingGroup">
+      <form [formGroup]="bookingGroup" class="col-12">
+        <ng-template matStepLabel>Fill out Booking Details</ng-template>
+        
+          <div class="row">
+              <div class="col-6">
+                  <datepicker formControlName="bookDate" [DPrevDays]="true"></datepicker>
+              </div>
+    
+              <div class="col-3">
+                    <!-- <mat-form-field>
+                    <input matInput formControlName="bookDate" [matDatepicker]="bookDate" placeholder="Book Date" autocomplete="off">
+                    <mat-datepicker-toggle matSuffix [for]="bookDate"></mat-datepicker-toggle>
+                    <mat-datepicker #bookDate></mat-datepicker>
+                  </mat-form-field> -->
+    
+                  <div class="example-container">
+                      <mat-form-field>
+                          <input matInput placeholder="Start Time" aria-label="12hr format" formControlName="startTime" [ngxTimepicker]="startTime" readonly>
+                          <mat-icon matSuffix> timer</mat-icon>
+                          <ngx-material-timepicker #startTime></ngx-material-timepicker> 
+                      </mat-form-field>
+                      
+                      <mat-form-field>          
+                          <input matInput placeholder="End Time" aria-label="12hr format" formControlName="endTime" [ngxTimepicker]="endTime" readonly>
+                          <mat-icon matSuffix> add_alarm</mat-icon>
+                          <ngx-material-timepicker #endTime></ngx-material-timepicker>
+                      </mat-form-field>
+
+                      <mat-form-field class="example-full-width">
+                          <input type="text" placeholder="Select Employee" aria-label="Number" matInput formControlName="employee" [matAutocomplete]="auto">
+                          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option *ngFor="let employee of employees" [value]="employee">
+                              {{ employee.customerFirstName }} {{ employee.customerLastName}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                      
+                  </div>
+    
+                  
+              </div>
+          </div>
+
+        <div class="next-buttons">
+            <!-- [disabled]="!firstFormGroup.valid" -->
+          <button mat-button matStepperNext (click)="goNext()">Next</button>
+        </div>
+
+      </form>
+    </mat-step>
+    
+    <mat-step [stepControl]="roomGroup" [optional]="isOptional">
+      <form [formGroup]="roomGroup">
+        <ng-template matStepLabel>Pick a Room</ng-template>
+
+        <!-- <mat-form-field>
+            <mat-label>Room Type</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let food of foods" [value]="food.key">
+                {{food.key}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+
+          <ul class="list-unstyled">
+              <li class="media" *ngFor="let room of rooms" (click)="nextPage(stepper, room)">
+                <img src="https://www.lottehotel.com/content/dam/lotte-hotel/city/jeju/facilities/business/5350-151125-2000-fac-ltcj.jpg.thumb.768.768.jpg" class="mr-3" alt="...">
+                <div class="media-body">
+                  <h5 class="mt-0 mb-1">{{ room.RoomName}}</h5>
+                    <ul>
+                      <li *ngFor="let amenity of room.Amenities">
+                        {{ amenity.facilityName  }}
+                      </li>
+                    </ul>
+                </div>
+              </li>
+              <!-- <li class="media my-4">
+                <img src="http://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/12/2016/02/09120423/Pullman-Executive-Room-King-Bed-1.jpg" class="mr-3" alt="...">
+                <div class="media-body">
+                  <h5 class="mt-0 mb-1">List-based media object</h5>
+                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+              </li>
+              <li class="media">
+                <img src="https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-articleLarge.jpg?quality=75&auto=webp&disable=upscale" class="mr-3" alt="...">
+                <div class="media-body">
+                  <h5 class="mt-0 mb-1">List-based media object</h5>
+                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+              </li> -->
+            </ul>
+
+          
+        <!-- <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div> -->
+      </form>
+    </mat-step>
+    
+    <mat-step [stepControl]="addOnGroup" [optional]="isOptional">
+      <form>
+        <ng-template matStepLabel>Pick Addons</ng-template>
+    
+        <!-- <mat-form-field>
+          <input matInput placeholder="Address" formControlName="secondCtrl" required>
+        </mat-form-field> -->
+
+        <div class="container">
+          <div class="row">
+              <!-- <div class="col-10"> -->
+                  <div class="col-3" *ngFor="let addon of addons" style="margin-bottom:1rem">
+                      <div class="card">
+                          <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
+                          <div class="card-body">
+                            <h5 class="card-title">{{ addon.addOnName }}</h5>
+                            <p class="card-text">{{ addon.description }}</p>
+                            <a href="#">Quantity</a>  <input type="number" class="quant" min="0" max="10" [(ngModel)]="addon.quantity" [ngModelOptions]="{standalone: true}">
+                          </div>
+                      </div>
+                  </div>
+              <!-- </div> -->
+          </div>
+        </div>
+
+
+        <div class="next-buttons">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext (click)="accordion.openAll()">Next</button>
+          <!-- <button mat-button (click)="ver()">Sample</button> -->
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Review & Book</ng-template>
+
+
+      <mat-accordion #accordion="matAccordion" [multi]="true">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>Booking Details</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                  
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+        
+            <div class="row">
+                <div class="col-6 form-group">
+                  <label for="staticEmail" class="col-form-label">Book Date</label>
+                  <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="this.bookingGroup.value.bookDate">
+                  </div>
+                </div>
+                <div class="col-3 form-group">
+                    <label for="staticEmail" class="col-form-label">Start Time</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="this.bookingGroup.value.startTime">
+                    </div>
+                  </div>
+                  <div class="col-3 form-group">
+                    <label for="staticEmail" class="col-form-label">End Time</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="this.bookingGroup.value.endTime">
+                    </div>
+                  </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>Room Details</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            
+            <div *ngIf="this.roomGroup.value.room != null">
+                <div class="row">
+                    <div class="col-6 form-group">
+                      <label for="staticEmail" class="col-form-label">Room</label>
+                      <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="this.roomGroup.value.room.RoomName">
+                      </div>
+                    </div>     
+                    <div class="col-6 form-group">
+                      <label for="staticEmail" class="col-form-label">Size</label>
+                      <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="size()">
+                      </div>
+                    </div>              
+                </div>         
+                <div class="row">
+                  <div class="col-6">
+                      <h6>Amenities</h6>
+                      <ul>
+                        <li *ngFor="let amenity of this.roomGroup.value.room.Amenities">
+                            {{ amenity.quantity }} {{ amenity.facilityName }} 
+                        </li>
+                      </ul>
+                  </div>
+                  <div class="col-6">
+                      <h6>Addons</h6>
+                      <ul>
+                        <ng-container *ngFor="let addon of addons">
+                            <li *ngIf="addon.quantity > 0">                     
+                                {{ addon.quantity }}pcs - {{ addon.addOnName }}                  
+                              </li>
+                        </ng-container>
+                      </ul>
+                  </div>
+                </div>   
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+
+      <div class="next-buttons">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="book(stepper)" class="book">BOOK</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  

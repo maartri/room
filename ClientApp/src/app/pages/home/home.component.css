@@ -1,0 +1,63 @@
+.media img{
+    width:10rem;
+}
+.media{
+    cursor:pointer;
+    padding:10px;
+    border-radius:5px;
+}
+
+.media:hover{
+    background: #ebebeb;
+}
+
+.next-buttons{
+    text-align: right;
+    margin-top:3rem;
+}
+
+.next-buttons button{
+    background: #3f51b5;
+    color:#fff;
+    margin-left:5px;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+}
+  
+.example-container > * {
+    width: 100%;
+}
+
+.bd-placeholder-img{
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.card-text{
+    height: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
+    width: 100%;
+}
+
+.quant{
+    width:3rem;
+    margin-left:1rem;
+    padding:0 3px;
+}
+
+input{
+    outline:0;
+}
+
+button.book{
+    background:#3fb553 !important;
+}

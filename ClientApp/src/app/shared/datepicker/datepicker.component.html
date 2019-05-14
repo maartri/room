@@ -1,0 +1,54 @@
+<div class="date-wrapper">
+    <!-- <input type="text" [(ngModel)]="value" />
+    <i class="material-icons" (click)="show = !show; emitDate.next(show)"> date_range </i> -->
+
+    <div class="date-body">
+        <div [hidden]="!(window == 1)" >
+            <div class="control-header">
+                <div class="control-picker">
+                    <button class="btn-clear" (click)="window = 2">{{ tempValue | date: 'MMMM'}}</button>
+                    <button class="btn-clear" (click)="populate();window = 3;">{{ tempValue | date: 'yyyy' }}</button>
+                </div>
+                <div class="control-switcher" style="float:right">
+                    <div class="year-controls">
+                        <i class="material-icons" (click)="pick('md',1)"> keyboard_arrow_left </i>
+                        <i class="material-icons" (click)="currDate()"> date_range </i>                 
+                        <i class="material-icons" (click)="pick('mi',1)"> keyboard_arrow_right </i>                
+                    </div>
+                </div>
+                <div style="margin-top:1rem;">
+                    <table id="days">
+                       <thead>
+                            <tr>
+                                <th>S</th>
+                                <th>M</th>
+                                <th>T</th>
+                                <th>W</th>
+                                <th>T</th>
+                                <th>F</th>
+                                <th>S</th>
+                            </tr>
+                       </thead>
+                       <tbody>
+                           <tr *ngFor="let arr of arrayDate">
+                               <td *ngFor="let day of arr" [class.today]="day.selected" [class.disable]="day.disable" (click)="pickDate(day)">{{day.data}}</td>
+                           </tr>
+                       </tbody>
+                    </table>
+                    <!-- <div class="cancel" (click)="clearDate()"><i class="material-icons"> close </i></div> -->
+                </div>
+            </div>            
+        </div>
+        <div class="dd-container" [hidden]="!(window == 2)">
+            <button class="btn-clear" *ngFor="let month of months;index as i" (click)="pick('m', i)" >{{ month }}</button>
+        </div>
+        <div class="dd-container" [hidden]="!(window == 3)">
+            <div class="year-controls year-controls-y">            
+                <i class="material-icons" (click)="loopYear(indexYear-10)"> keyboard_arrow_left </i>     
+                <i class="material-icons"> date_range </i>              
+                <i class="material-icons" (click)="loopYear(indexYear+10)"> keyboard_arrow_right </i>    
+            </div>
+            <button class="btn-clear" *ngFor="let year of years" (click)="pick('y',year)">{{year}}</button>
+        </div>
+    </div>
+</div>
